@@ -1,3 +1,4 @@
+
 const jobApplications = [];
 
 function renderJobApplications() {

@@ -1,6 +1,6 @@
-
 const jobApplications = [];
 
+// Function to render job applications to the table
 function renderJobApplications() {
     const tbody = document.querySelector('table tbody');
     tbody.innerHTML = jobApplications.map(app =>
@@ -22,28 +22,26 @@ function renderJobApplications() {
     ).join('');
 }
 
-document.getElementById('jobApplicationForm').addEventListener('submit', function(event) {
+// Function to handle form submission
+document.getElementById('jobApplicationForm').addEventListener('submit', function (event) {
     event.preventDefault();
-
-    const newJobApplication = {
-        date: document.getElementById('date').value,
-        company: document.getElementById('company').value,
-        position: document.getElementById('position').value,
-        contractType: document.getElementById('contractType').value,
-        source: document.getElementById('source').value,
-        followUpDate: document.getElementById('followUpDate').value,
-        status: document.getElementById('status').value,
-        employerResponse: document.getElementById('employerResponse').value,
-        responseMode: document.getElementById('responseMode').value,
-        reasons: document.getElementById('reasons').value,
-        interview: document.getElementById('interview').value,
-        profiles: document.getElementById('profiles').value,
-        documentsSent: document.getElementById('documentsSent').value,
-    };
-
-    jobApplications.push(newJobApplication);
+    
+    const formData = new FormData(event.target);
+    const newApplication = {};
+    for (const [key, value] of formData.entries()) {
+        newApplication[key] = value;
+    }
+    
+    jobApplications.push(newApplication);
     renderJobApplications();
-    event.target.reset();
+    event.target.reset(); // Reset form after submission
 });
 
+// Function to export data to Excel
+document.getElementById('exportButton').addEventListener('click', function () {
+    // Export functionality here
+    // You would need to implement or link a library for exporting to Excel
+});
+
+// Render job applications on document load
 document.addEventListener('DOMContentLoaded', renderJobApplications);
